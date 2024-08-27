@@ -1,0 +1,64 @@
+version: "3.3"
+
+networks:
+  olx:
+#    name: aselole
+
+services:
+  app:
+    container_name: olx-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - postgres
+    networks:
+      - olx
+
+  postgres:
+    container_name: olx-db
+    image: postgres:15
+    restart: always
+    volumes:
+      - ./docker/postgres/data:/var/lib/postgres/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "55322:5432"
+    networks:
+      - olx
+
+  web:
+    build: ./apache/.
+    container_name: olx_apache
+    image: olx
+    restart: always
+    ports:
+      - 8001:80
+    volumes:
+      - ./src:/var/www/html
+    networks:
+      - olx
+    depends_on:
+      - postgres
+
+  composer:
+    build:
+      context: dockerfiles
+      dockerfile: composer.Dockerfile
+    volumes:
+      - db_data:/var/www/html
+  artisan:
+    build:
+      context: dockerfiles
+      dockerfile: php.Dockerfile
+    volumes:
+      - ./src:/var/www/html
+    entrypoint: ["php", "/var/www/laravel/artisan"]
+
+volumes:
+  db_data:
