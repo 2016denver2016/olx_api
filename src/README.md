@@ -1,4 +1,4 @@
-# V-Jet Lumen API Framework
+# Lumen API Framework
 
 This is a boilerplate for lumen 8.x if you are using lumen to write REST api it will help you.
 
