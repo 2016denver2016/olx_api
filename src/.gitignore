@@ -8,9 +8,7 @@ node_modules/
 dist/
 vendor/
 
-public/apidoc/
 
-.env
 
 # Compiled Java class files
 *.class
