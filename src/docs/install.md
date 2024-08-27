@@ -3,10 +3,16 @@
 #### Using GIT
 
 ``` bash
-composer install
-cp .env.example .env
-php artisan jwt:secret
-php artisan key:generate
+git clone https://github.com/2016denver2016/olx_api.git ./
+```
+### Deploy
+
+In a production server we can omit development packages autoload using this command
+
+```bash
+docker-compose up
+
+docker exec -it olx-app php artisan composer install
 ```
 
 ### 2 configure your project
@@ -15,31 +21,14 @@ php artisan key:generate
 Now give to your project access tou your database and create the users table whit a test user.
 
 ```bash
-vim .env
-  DB_*
-    configure your database access
+docker exec -it olx-app php artisan migrate
 
-php artisan migrate --seed
+docker exec -it olx-app php artisan db:seed
 ```
 
 ## Documentation
 
-### Serve Your API
+We have some routes to start. http(s)://localhost:8001/apidoc/index.html
 
-```bash
-php -S localhost:8000 -t public
-# or
-php artisan serve
-```
 
-### Deploy
 
-In a production server we can omit development packages autoload using this command
-
-```bash
-composer install --no-dev
-```
-
-### Routes
-
-We have some routes to start. http(s)://domain/apidoc/index.html
