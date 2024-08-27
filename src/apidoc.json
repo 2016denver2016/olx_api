@@ -1,0 +1,7 @@
+{
+    "name": "Olx advert price App API",
+    "version": "0.1.0",
+    "description": "Description of endpoints and parameters",
+    "title": "Olx advert price App API",
+    "url" : "http://olx-api.local/v1"
+}

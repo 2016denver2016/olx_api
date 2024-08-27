@@ -1,0 +1,9 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [{
+            "appID": "H2SSB44XB7.com.FlowkInc.Flowk",
+            "paths": ["/devapi.letsflowk.com/*"]
+        }]
+    }
+}
