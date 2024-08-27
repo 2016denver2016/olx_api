@@ -59,6 +59,11 @@ COPY --from=composer:2.3 /usr/bin/composer /usr/bin/composer
 RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 
+RUN echo "0 0 * * * root php /var/www/html && php artisan verify-advert:price >> /var/log/cron.log 2>&1" >> /etc/crontab
+
+# Create the log file to be able to run tail
+RUN touch /var/log/cron.log
+
 # Copy existing application directory contents
 COPY ./src /var/www/html
 
